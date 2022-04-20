@@ -11,7 +11,7 @@
     ],
     "require": {
         "php": ">=7.4",
-        "acquia/acquia_cms": "^1.3.2",
+        "acquia/acquia-cms-starterkit": "*",
         "acquia/drupal-environment-detector": "^1",
         "acquia/http-hmac-php": "3.4.0",
         "acquia/memcache-settings": "^1",
@@ -124,6 +124,10 @@
         "drupal": {
             "type": "composer",
             "url": "https://packages.drupal.org/8"
+        },
+        "acquia_cms_starterkit": {
+            "type": "vcs",
+            "url": "git@github.com:acquia/acquia-cms-starterkit.git"
         }
     },
     "minimum-stability": "dev",
