@@ -2,6 +2,7 @@ name-template: '$RESOLVED_VERSION'
 tag-template: '$RESOLVED_VERSION'
 filter-by-commitish: true
 commitish: 'master'
+include-all-commits: true
 categories:
   - title: '🚨 Major changes'
     label: 'breaking change'
