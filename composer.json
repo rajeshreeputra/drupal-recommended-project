@@ -13,9 +13,11 @@
         "php": ">=8.1",
         "acquia/acquia-cms-starterkit": "^1",
         "acquia/drupal-environment-detector": "^1",
+        "acquia/drupal-recommended-settings": "^1.0",
         "acquia/memcache-settings": "^1",
         "composer/installers": "^2.1",
         "cweagans/composer-patches": "^1.6",
+        "drupal/config_sync_without_site_uuid": "^1.0@beta",
         "drupal/core-composer-scaffold": "^10",
         "drupal/core-recommended": "^10",
         "drush/drush": "^12",
@@ -38,7 +40,9 @@
             "drupal/core-composer-scaffold": true,
             "ergebnis/composer-normalize": true,
             "oomphinc/composer-installers-extender": true,
-            "phpstan/extension-installer": true
+            "phpstan/extension-installer": true,
+            "php-http/discovery": true,
+            "acquia/drupal-recommended-settings": true
         },
         "platform": {
             "php": "8.1"
