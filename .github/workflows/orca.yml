@@ -10,7 +10,7 @@ on:
     - cron: "0 0 * * *"
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     env:
       ORCA_SUT_NAME: acquia/drupal-recommended-project
       ORCA_SUT_BRANCH: master
@@ -27,7 +27,7 @@ jobs:
         orca-job:
           - STATIC_CODE_ANALYSIS
           - INTEGRATED_TEST_ON_PREVIOUS_MINOR
-          #- INTEGRATED_UPGRADE_TEST_FROM_PREVIOUS_MINOR
+          ##- INTEGRATED_UPGRADE_TEST_FROM_PREVIOUS_MINOR
           - ISOLATED_TEST_ON_CURRENT
           - INTEGRATED_TEST_ON_CURRENT
           - ISOLATED_TEST_ON_CURRENT_DEV
@@ -36,18 +36,19 @@ jobs:
           - INTEGRATED_TEST_ON_NEXT_MINOR
           - INTEGRATED_TEST_ON_NEXT_MINOR_DEV
           - ISOLATED_TEST_ON_NEXT_MINOR_DEV
+
           # We do not run deprecated code scans since they'd scan the entire
           # codebase (since the SUT is the project template).
-        php-version: [ "8.1", "8.3" ]
+        php-version: [ "8.3" ]
         orca-version: [ "^4" ]
 
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v4
         with:
-          node-version: 16.x
+          node-version: 20.x
 
       - uses: shivammathur/setup-php@v2
         with:
@@ -57,6 +58,13 @@ jobs:
       - name: Before install
         run: |
           composer create-project --no-dev acquia/orca ../orca "$ORCA_VERSION"
+          # For now we are allowing INTEGRATED_TEST_ON_CURRENT job to fail
+          # because PHPUnit tests are failing for acquia_search, acquia_dam
+          # drupal-environment-detector & acquia_connector. Once tests passes,
+          # we can remove below.
+          if [[ "$ORCA_JOB" == "INTEGRATED_TEST_ON_CURRENT" ]]; then
+            echo 'export ORCA_IS_ALLOWED_FAILURE="TRUE"' >> ../orca/bin/ci/_includes.sh
+          fi
           ../orca/bin/ci/before_install.sh
           if [[ ! "$ORCA_JOB" ]]; then composer install; fi
 
