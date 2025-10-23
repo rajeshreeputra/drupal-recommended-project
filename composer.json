@@ -110,7 +110,11 @@
         "patchLevel": {
             "drupal/core": "-p2"
         },
-        "patches": {}
+        "patches": {
+            "drupal/acquia_dam": {
+                "fix orca ci": "https://git.drupalcode.org/project/acquia_dam/-/merge_requests/211.patch"
+            }
+        }
     },
     "repositories": {
         "drupal": {
